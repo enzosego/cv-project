@@ -1,0 +1,44 @@
+.form-container {
+  width: 90vw;
+  margin: 3vh 5vw auto 5vw;
+}
+
+.form-fields {
+  margin-top: 5vh;
+}
+
+input {
+  width: 40vw;
+  font-family: inherit;
+  font-size: 3vh;
+  outline: none;
+  padding-left: 0.3vw;
+  margin-top: 1vh;
+}
+
+textarea {
+  margin-top: 1vh;
+  font-family: inherit;
+  font-size: 2.5vh;
+  padding: 2vh auto auto 2vw;
+}
+
+.new-skill {
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 2.6vh;
+  font-weight: 600;
+  background: #457b9d;
+  color: rgb(230, 230, 230);
+  padding: 1vh 1vw 1vh 1vw;
+  border-radius: 0.5vh;
+}
+
+.new-skill:hover {
+  cursor: pointer;
+}
+
+.new-skill:active {
+  transform: scale(0.99);
+}
