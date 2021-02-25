@@ -14,29 +14,35 @@ class App extends Component {
 
     this.state = {
       personalData: {
-        name: '',
+        name: ['', ''],
         mail: '', 
         number: '', 
         about: '', 
         whyFit: ''
       },
-      educationData: {
-        title: '', 
-        institution: '', 
-        educationDate: ['', '']
-      },
-      experienceData: {
+      educationData: [
+        {
+          title: '', 
+          institution: '', 
+          educationDate: ['', '']
+        }
+      ],
+      experienceData: [
+      {
         field: '',
         employer: '', 
         fieldDate: ['', ''], 
-      },
+      }
+      ],
       skills: [''],
       showPreview: false,
     };
 
     this.handlePersonalData = this.handlePersonalData.bind(this);
     this.handleEducationData = this.handleEducationData.bind(this);
+    this.addNewEducationField = this.addNewEducationField.bind(this);
     this.handleExperienceData = this.handleExperienceData.bind(this);
+    this.addNewExperienceField = this.addNewExperienceField.bind(this);
     this.handleSkills = this.handleSkills.bind(this);
     this.addNewSkill = this.addNewSkill.bind(this);
   }
@@ -48,9 +54,11 @@ class App extends Component {
         <PersonalInfo handlePersonalData={this.handlePersonalData}
           personalData={personalData}/>
         <Education handleEducationData={this.handleEducationData} 
-          educationData={educationData}/>
+          educationData={educationData}
+          addNewEducationField={this.addNewEducationField}/>
         <Experience handleExperienceData={this.handleExperienceData} 
-          experienceData={experienceData}/>
+          experienceData={experienceData}
+          addNewExperienceField={this.addNewExperienceField}/>
         <Skills 
           handleSkills={this.handleSkills}
           skills={skills}
@@ -72,24 +80,58 @@ class App extends Component {
     );
   }
 
-  handleEducationData = (titleName, institutionName, dateOfConcurrence) => {
-    this.state.educationData.title = titleName;
-    this.state.educationData.institution = institutionName;
-    this.state.educationData.date = dateOfConcurrence;
+  handleEducationData = (index, variableToChange, value) => {
+    const {educationData} = this.state
+    if (index.length > 1) {
+      const objectContainerIndex = +index.slice(0, 1);
+      const variableIndex = +index.slice(1);
+      educationData[objectContainerIndex][variableToChange][variableIndex] = value;
+    } else {
+      educationData[index][variableToChange] = value;
+    }
     this.setState({
         educationData: this.state.educationData,
       }, () => console.log(this.state.educationData)
     );
   }
 
-  handleExperienceData = (workField, employerName, dateOfConcurrence) => {
-    this.state.experienceData.field = workField;
-    this.state.experienceData.employer = employerName;
-    this.state.experienceData.date = dateOfConcurrence;
+  addNewEducationField = () => {
+    this.setState({
+      educationData: this.state.educationData.concat([
+      {
+          title: '', 
+          institution: '', 
+          educationDate: ['', '']
+        }
+      ])
+    }, () => console.log(this.state.educationData));
+  }
+
+  handleExperienceData = (index, variableToChange, value) => {
+    const {experienceData} = this.state;
+    if (index.length > 1) {
+      const objectContainerIndex = +index.slice(0, 1);
+      const variableIndex = +index.slice(1);
+      experienceData[objectContainerIndex][variableToChange][variableIndex] = value;
+    } else {
+      experienceData[index][variableToChange] = value;
+    }
     this.setState({
         experienceData: this.state.experienceData,
       }, () => console.log(this.state.experienceData)
     );
+  }
+
+  addNewExperienceField = () => {
+    this.setState({
+      experienceData: this.state.experienceData.concat([
+      {
+        field: '',
+        employer: '', 
+        fieldDate: ['', ''], 
+      }
+      ])
+    }, () => console.log(this.state.experienceData))
   }
 
   handleSkills = e => {

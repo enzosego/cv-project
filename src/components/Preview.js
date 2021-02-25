@@ -4,6 +4,46 @@ import uniqid from 'uniqid';
 const skillList = skills => 
   skills.map(skill => <li key={uniqid()}>{skill}</li>)
 
+const appendingAdditionalEducation = (educationData) => {
+  if (educationData.length === 1) return '';
+  let additionalEducationArray = [];
+  
+  for (let i = 1; i < educationData.length; i++) {
+    const {title, institution, educationDate} = educationData[i];
+    additionalEducationArray.push(
+      <div className="additional-education">
+        <h2 className='title'>Education Title:</h2>
+        <p className="subText">{title}</p>
+        <h2 className='title'>Name of Institution:</h2>
+        <p className="subText">{institution}</p>
+        <h2 className='title'>Time of concurrence:</h2>
+        <p className="subText">{educationDate[0]} {educationDate[1]}</p>
+      </div>
+    )
+  }
+  return additionalEducationArray;
+}
+
+const appendAdditionalExperince = (experienceData) => {
+  if (experienceData.length === 1) return '';
+  let additionalExperienceArray = [];
+
+  for (let i = 1; i < experienceData.length; i++) {
+    const {field, employer, fieldDate} = experienceData[i];
+    additionalExperienceArray.push(
+      <div className="additional-experience">
+        <h2 className="title">Work experience:</h2>
+        <p className="subText">{field}</p>
+        <h2 className="title">Employer:</h2>
+        <p className="subText">{employer}</p>
+        <h2 className='title'>Time of concurrence:</h2>
+        <p className="subText"><strong>{fieldDate[0]}</strong> to <strong>{fieldDate[1]}</strong></p>
+      </div>
+    )
+  }
+  return additionalExperienceArray;
+}
+
 const previewContainer = (showPreview, personalData, educationData, experienceData, skills) => {
   if (showPreview) {
     const {name, mail, number, about, whyFit} = personalData;
@@ -35,7 +75,7 @@ const previewContainer = (showPreview, personalData, educationData, experienceDa
             <h2 className='title'>Why am i a good fit?</h2>
             <p className="subText">{whyFit}</p>
           </div>
-          <div className="experience-education">
+          <div className="experience-education" key={uniqid()}>
               <h2 className='title'>Education Title:</h2>
               <p className="subText">{title}</p>
               <h2 className='title'>Name of Institution:</h2>

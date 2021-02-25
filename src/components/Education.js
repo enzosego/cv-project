@@ -1,71 +1,125 @@
 import React, {Component} from 'react';
+import uniqid from 'uniqid';
 
 export class Education extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      titleName: this.props.educationData.title,
-      institutionName: this.props.educationData.institution,
-      dateOfConcurrence: this.props.educationData.educationDate,
+      ongoing1: false,
+      ongoing2: false,
+      ongoing3: false
     }
 
-    this.handleTitle = this.handleTitle.bind(this);
-    this.handleInstitution = this.handleInstitution.bind(this);
-    this.handleStartDate = this.handleStartDate.bind(this);
-    this.handleEndDate = this.handleEndDate.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleDate = this.handleDate.bind(this);
+    this.addNewForm = this.addNewForm.bind(this);
+    this.appendAdditionalForms = this.appendAdditionalForms.bind(this);
+    this.switchOngoing = this.switchOngoing.bind(this);
   }
 
-  passDataToParent() {
-    this.props.handleEducationData(this.state.titleName, this.state.institutionName, this.state.dateOfConcurrence)
-  }
-
-  handleTitle(e) {
+  switchOngoing = (e) => {
+    const ongoing = e.target.id;
     this.setState({
-      titleName: e.target.value
-    }, () => this.passDataToParent())
+      [ongoing]: !this.state[ongoing]
+    }, () => console.log(this.state))
   }
 
-  handleInstitution(e) {
-    this.setState({
-      institutionName: e.target.value
-    }, () => this.passDataToParent())
+  handleChange = e => {
+    const index = +e.target.id.slice(-1);
+    const variableToChange = e.target.id.slice(0, -1);
+    const value = e.target.value;
+    this.props.handleEducationData(index, variableToChange, value);
   }
 
-  handleStartDate(e) {
-    this.state.dateOfConcurrence[0] = e.target.value;
-    this.setState({
-      dateOfConcurrence: this.state.dateOfConcurrence
-    }, () => this.passDataToParent())
+  handleDate = e => {
+    const index = e.target.id.slice(-2);
+    const variableToChange = e.target.id.slice(0, -2);
+    const value = e.target.value;
+    this.props.handleEducationData(index, variableToChange, value);
   }
 
-  handleEndDate(e) {
-    this.state.dateOfConcurrence[1] = e.target.value;
-    this.setState({
-      dateOfConcurrence: this.state.dateOfConcurrence
-    }, () => this.passDataToParent())
+  addNewForm = () => {
+    const formCount = this.props.educationData.length;
+    if (formCount >= 3) return;
+    this.props.addNewEducationField();
+  }
+
+  appendAdditionalForms = () => {
+    const formCount = this.props.educationData.length;
+    if (formCount === 1) return
+    let additinalFormsArray = [];
+
+    for (let i = 1; i < formCount; i++) {
+      const {title, institution, educationDate} = this.props.educationData[i];
+      additinalFormsArray.push(
+        <div className="form-fields" key={uniqid()}>
+          <input type="text" 
+            id={`title${i}`}
+            className='title-name' 
+            placeholder='Enter your title'
+            defaultValue={title}
+            onBlur={this.handleChange}/>
+            <input type="text" 
+            id={`institution${i}`}
+            className='institution-name' 
+            placeholder='Institution'
+            defaultValue={institution}
+            onBlur={this.handleChange}/>
+            <input type="date" 
+            id={`educationDate${i}0`}
+            className='start-date'
+            defaultValue={educationDate[0]}
+            onBlur={this.handleDate}/>
+            <input type="date" 
+            id={`educationDate${i}1`}
+            className='end-date'
+            defaultValue={educationDate[1]}
+            onBlur={this.handleDate}/>
+            <button className='ongoing-switch-button'
+              id={`ongoing${i+1}`}
+              onClick={this.switchOngoing}>
+              Ongoing
+            </button>
+        </div>
+      )
+    }
+    return additinalFormsArray;
   }
 
   render() {
-    const {titleName, institutionName, dateOfConcurrence} = this.state;
+    const {title, institution, educationDate} = this.props.educationData[0];
     return (
-        <div className="form-fields">
+        <div className="form-fields" key={uniqid}>
           <input type="text" 
-          value={titleName}
+          id='title0'
           className='title-name' 
           placeholder='Enter your title'
-          onChange={this.handleTitle}/>
+          defaultValue={title}
+          onBlur={this.handleChange}/>
           <input type="text" 
-          value={institutionName}
+          id='institution0'
           className='institution-name' 
-          onChange={this.handleInstitution}/>
+          placeholder='Institution'
+          defaultValue={institution}
+          onBlur={this.handleChange}/>
           <input type="date" 
-          value={dateOfConcurrence[0]}
+          id='educationDate00'
           className='start-date'
-          onChange={this.handleStartDate}/>
+          defaultValue={educationDate[0]}
+          onBlur={this.handleDate}/>
           <input type="date" 
-          value={dateOfConcurrence[1]}
+          id='educationDate01'
           className='end-date'
-          onChange={this.handleEndDate}/>
+          defaultValue={educationDate[1]}
+          onBlur={this.handleDate}/>
+          <button className='ongoing-switch-button'
+            id='ongoing1'
+            onClick={this.switchOngoing}>
+            Ongoing
+          </button>
+          {this.appendAdditionalForms()}
+          <button onClick={this.addNewForm} className='new-education-form-button'>Add education</button>
         </div>
     )
   }

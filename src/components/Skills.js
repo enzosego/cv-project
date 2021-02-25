@@ -17,7 +17,7 @@ export const Skills = ({handleSkills, skills, addNewSkill}) => {
   return (
     <div className="form-fields">
       {appendInputs()}
-      <button className="new-skill"
+      <button className="new-skill-button"
         onClick={addNewSkill}> 
         New skill
       </button>

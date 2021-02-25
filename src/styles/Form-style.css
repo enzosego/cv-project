@@ -23,7 +23,7 @@ textarea {
   padding: 2vh auto auto 2vw;
 }
 
-.new-skill {
+.new-skill-button {
   border: none;
   outline: none;
   font-family: inherit;
@@ -35,10 +35,34 @@ textarea {
   border-radius: 0.5vh;
 }
 
-.new-skill:hover {
+.new-skill-button:hover {
   cursor: pointer;
+  background: #456b9d;
 }
 
-.new-skill:active {
+.new-skill-button:active {
   transform: scale(0.99);
 }
+
+.new-education-form-button {
+  font-size: 2.6vh;
+  outline: none;
+  font-family: inherit;
+  border: none;
+  font-weight: 600;
+  background: #457b9d;
+  color: rgb(230, 230, 230);
+  padding: 1vh 1vw 1vh 1vw;
+  border-radius: 0.5vh;
+}
+
+.new-education-form-button:hover {
+  cursor: pointer;
+  background: #456b9d;
+}
+
+.new-education-form-button:active {
+  transform: scale(0.99);
+}
+
+

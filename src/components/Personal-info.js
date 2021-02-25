@@ -21,8 +21,9 @@ export class PersonalInfo extends Component {
   }
 
   passDataToParent() {
-    this.props.handlePersonalData(this.state.firstName, this.state.lastName, this.state.eMail,
-      this.state.phoneNumber, this.state.aboutInput, this.state.whyFitInput);
+    const {firstName, lastName, eMail, phoneNumber, aboutInput, whyFitInput} = this.state;
+    this.props.handlePersonalData(firstName, lastName, eMail,
+      phoneNumber, aboutInput, whyFitInput);
   }
 
   handleFirstName(e) {
@@ -67,34 +68,34 @@ export class PersonalInfo extends Component {
       <div className="form-fields">
         <input type="text" 
         className='names'
-          value={name[0]}
+          defaultValue={name[0]}
           placeholder='Enter your first name'
-          onChange={e => this.handleFirstName(e)}/>
+          onBlur={e => this.handleFirstName(e)}/>
         <input type="text" 
         className="names"
-          value={name[1]}
+          defaultValue={name[1]}
           placeholder='Enter your last name'
-          onChange={e => this.handleLastName(e)}/>
+          onBlur={e => this.handleLastName(e)}/>
         <input type="email" 
         className="secondary-info"
-          value={mail}
+          defaultValue={mail}
           placeholder='Enter your e-mail'
-          onChange={e => this.handleEmail(e)}/>
+          onBlur={e => this.handleEmail(e)}/>
         <input type="text" 
         className="secondary-info"
-          value={number}
+          defaultValue={number}
           placeholder='Enter your phone number'
-          onChange={e => this.handlePhoneNumber(e)}/>
+          onBlur={e => this.handlePhoneNumber(e)}/>
         <textarea cols="62"
-          value={about}
+          defaultValue={about}
           rows="5" 
           placeholder='Tell us about yourself.'
-          onChange={e => this.handleAboutInput(e)}></textarea>
+          onBlur={e => this.handleAboutInput(e)}></textarea>
         <textarea cols="62" 
-          value={whyFit}
+          defaultValue={whyFit}
           rows="5" 
           placeholder='Tell us why are you a good fit for our company.'
-          onChange={e => this.handleWhyFitInput(e)}></textarea>
+          onBlur={e => this.handleWhyFitInput(e)}></textarea>
       </div>
     )
   }
