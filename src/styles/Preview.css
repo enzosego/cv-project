@@ -86,9 +86,20 @@
   margin-bottom: 1vh;
 }
 
-.experience-education {
+.education-experience-container {
+  width: 100%;
+  display: flex;
+}
+
+.education {
   height: 60vh;
-  width: 90%;
+  width: 45%;
+  margin: 5vh 7% auto 7%;
+}
+
+.experience {
+  height: 60vh;
+  width: 45%;
   margin: 5vh 7% auto 7%;
 }
 

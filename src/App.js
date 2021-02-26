@@ -2,11 +2,11 @@ import "./styles/App.css";
 import "./styles/Form-style.css";
 import "./styles/Preview.css";
 import React, { Component } from "react";
+import { PersonalInfo } from "./components/Personal-info";
 import { Education } from "./components/Education";
 import { Experience } from "./components/Experience";
-import { PersonalInfo } from "./components/Personal-info";
-import { Preview } from "./components/Preview";
 import { Skills } from "./components/Skills";
+import { Preview } from "./components/Preview";
 
 class App extends Component {
   constructor() {
@@ -24,7 +24,8 @@ class App extends Component {
         {
           title: '', 
           institution: '', 
-          educationDate: ['', '']
+          educationDate: ['', ''],
+          ongoing: false
         }
       ],
       experienceData: [
@@ -47,6 +48,13 @@ class App extends Component {
     this.addNewSkill = this.addNewSkill.bind(this);
   }
 
+  switchOngoing = (index, targetObject) => {
+    this.state[targetObject][index].ongoing = !this.state[targetObject][index].ongoing;
+    this.setState({
+      [targetObject]: this.state[targetObject]
+    }, () => console.log(this.state[targetObject]))
+  }
+
   handleForms = (showPreview = this.state.showPreview) => {
     const {personalData, educationData, experienceData, skills} = this.state;
     if (!showPreview) return (
@@ -55,10 +63,12 @@ class App extends Component {
           personalData={personalData}/>
         <Education handleEducationData={this.handleEducationData} 
           educationData={educationData}
-          addNewEducationField={this.addNewEducationField}/>
+          addNewEducationField={this.addNewEducationField}
+          switchOngoing={this.switchOngoing}/>
         <Experience handleExperienceData={this.handleExperienceData} 
           experienceData={experienceData}
-          addNewExperienceField={this.addNewExperienceField}/>
+          addNewExperienceField={this.addNewExperienceField}
+          switchOngoing={this.switchOngoing}/>
         <Skills 
           handleSkills={this.handleSkills}
           skills={skills}
@@ -68,26 +78,23 @@ class App extends Component {
     return '';
   }
 
-  handlePersonalData = (firstName, lastName, eMail, phoneNumber, aboutInput, whyFitInput) => {
-    this.state.personalData.name = [firstName, lastName];
-    this.state.personalData.mail = eMail;
-    this.state.personalData.number = phoneNumber;
-    this.state.personalData.about = aboutInput;
-    this.state.personalData.whyFit = whyFitInput;
+  handlePersonalData = (propertyToChange, value, index) => {
+    if (index != null) this.state.personalData[propertyToChange][index] = value;
+    else this.state.personalData[propertyToChange] = value
     this.setState({
-        personalData: this.state.personalData,
+        personalData: this.state.personalData
       }, () => console.log(this.state.personalData)
     );
   }
 
-  handleEducationData = (index, variableToChange, value) => {
+  handleEducationData = (index, propertyToChange, value) => {
     const {educationData} = this.state
     if (index.length > 1) {
       const objectContainerIndex = +index.slice(0, 1);
       const variableIndex = +index.slice(1);
-      educationData[objectContainerIndex][variableToChange][variableIndex] = value;
+      educationData[objectContainerIndex][propertyToChange][variableIndex] = value;
     } else {
-      educationData[index][variableToChange] = value;
+      educationData[index][propertyToChange] = value;
     }
     this.setState({
         educationData: this.state.educationData,
@@ -99,22 +106,23 @@ class App extends Component {
     this.setState({
       educationData: this.state.educationData.concat([
       {
-          title: '', 
-          institution: '', 
-          educationDate: ['', '']
+        title: '', 
+        institution: '', 
+        educationDate: ['', ''],
+        ongoing: false
         }
       ])
     }, () => console.log(this.state.educationData));
   }
 
-  handleExperienceData = (index, variableToChange, value) => {
+  handleExperienceData = (index, propertyToChange, value) => {
     const {experienceData} = this.state;
     if (index.length > 1) {
       const objectContainerIndex = +index.slice(0, 1);
       const variableIndex = +index.slice(1);
-      experienceData[objectContainerIndex][variableToChange][variableIndex] = value;
+      experienceData[objectContainerIndex][propertyToChange][variableIndex] = value;
     } else {
-      experienceData[index][variableToChange] = value;
+      experienceData[index][propertyToChange] = value;
     }
     this.setState({
         experienceData: this.state.experienceData,

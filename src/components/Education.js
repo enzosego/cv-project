@@ -1,126 +1,100 @@
-import React, {Component} from 'react';
+import React from "react";
 import uniqid from 'uniqid';
 
-export class Education extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      ongoing1: false,
-      ongoing2: false,
-      ongoing3: false
-    }
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleDate = this.handleDate.bind(this);
-    this.addNewForm = this.addNewForm.bind(this);
-    this.appendAdditionalForms = this.appendAdditionalForms.bind(this);
-    this.switchOngoing = this.switchOngoing.bind(this);
-  }
-
-  switchOngoing = (e) => {
-    const ongoing = e.target.id;
-    this.setState({
-      [ongoing]: !this.state[ongoing]
-    }, () => console.log(this.state))
-  }
-
-  handleChange = e => {
+export const Education = ({handleEducationData, educationData, addNewEducationField, switchOngoing}) => {
+  
+  const handleChange = e => {
     const index = +e.target.id.slice(-1);
     const variableToChange = e.target.id.slice(0, -1);
     const value = e.target.value;
-    this.props.handleEducationData(index, variableToChange, value);
+    handleEducationData(index, variableToChange, value);
   }
 
-  handleDate = e => {
+  const handleDate = e => {
     const index = e.target.id.slice(-2);
     const variableToChange = e.target.id.slice(0, -2);
     const value = e.target.value;
-    this.props.handleEducationData(index, variableToChange, value);
+    handleEducationData(index, variableToChange, value);
   }
 
-  addNewForm = () => {
-    const formCount = this.props.educationData.length;
+  const addNewForm = () => {
+    const formCount = educationData.length;
     if (formCount >= 3) return;
-    this.props.addNewEducationField();
+    addNewEducationField();
   }
 
-  appendAdditionalForms = () => {
-    const formCount = this.props.educationData.length;
+  const appendAdditionalForms = () => {
+    const formCount = educationData.length;
     if (formCount === 1) return
     let additinalFormsArray = [];
 
     for (let i = 1; i < formCount; i++) {
-      const {title, institution, educationDate} = this.props.educationData[i];
+      const {title, institution, educationDate, ongoing} = educationData[i];
       additinalFormsArray.push(
         <div className="form-fields" key={uniqid()}>
           <input type="text" 
-            id={`title${i}`}
-            className='title-name' 
-            placeholder='Enter your title'
-            defaultValue={title}
-            onBlur={this.handleChange}/>
+              id={`title${i}`}
+              className='title-name' 
+              placeholder='Enter your title'
+              defaultValue={title}
+              onBlur={handleChange}/>
             <input type="text" 
-            id={`institution${i}`}
-            className='institution-name' 
-            placeholder='Institution'
-            defaultValue={institution}
-            onBlur={this.handleChange}/>
+              id={`institution${i}`}
+              className='institution-name' 
+              placeholder='Institution'
+              defaultValue={institution}
+              onBlur={handleChange}/>
             <input type="date" 
-            id={`educationDate${i}0`}
-            className='start-date'
-            defaultValue={educationDate[0]}
-            onBlur={this.handleDate}/>
+              id={`educationDate${i}0`}
+              className='start-date'
+              defaultValue={educationDate[0]}
+              onBlur={handleDate}/>
             <input type="date" 
-            id={`educationDate${i}1`}
-            className='end-date'
-            defaultValue={educationDate[1]}
-            onBlur={this.handleDate}/>
-            <button className='ongoing-switch-button'
-              id={`ongoing${i+1}`}
-              onClick={this.switchOngoing}>
-              Ongoing
-            </button>
+              id={`educationDate${i}1`}
+              className='end-date'
+              defaultValue={educationDate[1]}
+              onBlur={handleDate}/>
+            <input type="checkbox" 
+              className='switch-ongoing-checkbox'
+              checked={ongoing}
+              onChange={() => switchOngoing(i, 'educationData')}/>
         </div>
       )
     }
     return additinalFormsArray;
   }
 
-  render() {
-    const {title, institution, educationDate} = this.props.educationData[0];
-    return (
-        <div className="form-fields" key={uniqid}>
-          <input type="text" 
+  const {title, institution, educationDate, ongoing} = educationData[0];
+  return(
+      <div className="form-fields" key={uniqid}>
+        <input type="text" 
           id='title0'
           className='title-name' 
           placeholder='Enter your title'
           defaultValue={title}
-          onBlur={this.handleChange}/>
-          <input type="text" 
+          onBlur={handleChange}/>
+        <input type="text" 
           id='institution0'
           className='institution-name' 
           placeholder='Institution'
           defaultValue={institution}
-          onBlur={this.handleChange}/>
-          <input type="date" 
+          onBlur={handleChange}/>
+        <input type="date" 
           id='educationDate00'
           className='start-date'
           defaultValue={educationDate[0]}
-          onBlur={this.handleDate}/>
-          <input type="date" 
+          onBlur={handleDate}/>
+        <input type="date" 
           id='educationDate01'
           className='end-date'
           defaultValue={educationDate[1]}
-          onBlur={this.handleDate}/>
-          <button className='ongoing-switch-button'
-            id='ongoing1'
-            onClick={this.switchOngoing}>
-            Ongoing
-          </button>
-          {this.appendAdditionalForms()}
-          <button onClick={this.addNewForm} className='new-education-form-button'>Add education</button>
-        </div>
+          onBlur={handleDate}/>
+        <input type="checkbox"
+          className='switch-ongoing-checkbox'
+          checked={ongoing}
+          onChange={() => switchOngoing(0, 'educationData')}/>
+        {appendAdditionalForms()}
+        <button onClick={addNewForm} className='new-education-form-button'>Add education</button>
+      </div>
     )
-  }
 }
