@@ -5,13 +5,14 @@ export const PersonalInfo = ({handlePersonalData, personalData}) => {
 
   const handleChange = e => {
     let propertyToChange = e.target.id;
-    let index;
     const value = e.target.value;
-    if (e.target.id = 'name0' || 'name1') {
-      index = +propertyToChange.slice(-1); 
-      propertyToChange = propertyToChange.slice(0, -1)
-    }
-    console.log(index);
+    handlePersonalData(propertyToChange, value)
+  }
+
+  const handleName = e => {
+    const value = e.target.value;
+    const propertyToChange = e.target.id.slice(0, -1);
+    const index = +e.target.id.slice(-1);
     handlePersonalData(propertyToChange, value, index)
   }
 
@@ -22,13 +23,13 @@ export const PersonalInfo = ({handlePersonalData, personalData}) => {
           className='names'
           defaultValue={name[0]}
           placeholder='Enter your first name'
-          onBlur={handleChange}/>
+          onBlur={handleName}/>
         <input type="text" 
           id='name1'
           className="names"
           defaultValue={name[1]}
           placeholder='Enter your last name'
-          onBlur={handleChange}/>
+          onBlur={handleName}/>
         <input type="email" 
           id='mail'
           className="secondary-info"

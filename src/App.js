@@ -59,16 +59,23 @@ class App extends Component {
     const {personalData, educationData, experienceData, skills} = this.state;
     if (!showPreview) return (
       <div className="form-container">
+        <h1 className='form-titles'>Personal information:</h1>
         <PersonalInfo handlePersonalData={this.handlePersonalData}
           personalData={personalData}/>
+        <div className="separator"></div>
+        <h1 className='form-titles'>Educational information:</h1>
         <Education handleEducationData={this.handleEducationData} 
           educationData={educationData}
           addNewEducationField={this.addNewEducationField}
           switchOngoing={this.switchOngoing}/>
+        <div className="separator"></div>
+        <h1 className="form-titles">Working Experience:</h1>
         <Experience handleExperienceData={this.handleExperienceData} 
           experienceData={experienceData}
           addNewExperienceField={this.addNewExperienceField}
           switchOngoing={this.switchOngoing}/>
+        <div className="separator"></div>
+        <h1 className="form-titles">Share your main skills:</h1>
         <Skills 
           handleSkills={this.handleSkills}
           skills={skills}
@@ -79,6 +86,7 @@ class App extends Component {
   }
 
   handlePersonalData = (propertyToChange, value, index) => {
+    console.log(propertyToChange);
     if (index != null) this.state.personalData[propertyToChange][index] = value;
     else this.state.personalData[propertyToChange] = value
     this.setState({

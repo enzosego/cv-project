@@ -31,7 +31,7 @@ export const Education = ({handleEducationData, educationData, addNewEducationFi
     for (let i = 1; i < formCount; i++) {
       const {title, institution, educationDate, ongoing} = educationData[i];
       additinalFormsArray.push(
-        <div className="form-fields" key={uniqid()}>
+        <div className="additional-form-fields" key={uniqid()}>
           <input type="text" 
               id={`title${i}`}
               className='title-name' 
@@ -44,6 +44,7 @@ export const Education = ({handleEducationData, educationData, addNewEducationFi
               placeholder='Institution'
               defaultValue={institution}
               onBlur={handleChange}/>
+            <h3 className='time-of-concurrence'>Time of concurrence:</h3>
             <input type="date" 
               id={`educationDate${i}0`}
               className='start-date'
@@ -54,10 +55,13 @@ export const Education = ({handleEducationData, educationData, addNewEducationFi
               className='end-date'
               defaultValue={educationDate[1]}
               onBlur={handleDate}/>
-            <input type="checkbox" 
-              className='switch-ongoing-checkbox'
-              checked={ongoing}
-              onChange={() => switchOngoing(i, 'educationData')}/>
+            <div className="ongoing-switch-container">
+              <p className='ongoing-text'>Ongoing</p>
+              <input type="checkbox" 
+                className='switch-ongoing-checkbox'
+                checked={ongoing}
+                onChange={() => switchOngoing(i, 'educationData')}/>
+            </div>
         </div>
       )
     }
@@ -79,6 +83,7 @@ export const Education = ({handleEducationData, educationData, addNewEducationFi
           placeholder='Institution'
           defaultValue={institution}
           onBlur={handleChange}/>
+        <h3 className='time-of-concurrence'>Time of concurrence:</h3>
         <input type="date" 
           id='educationDate00'
           className='start-date'
@@ -89,10 +94,13 @@ export const Education = ({handleEducationData, educationData, addNewEducationFi
           className='end-date'
           defaultValue={educationDate[1]}
           onBlur={handleDate}/>
-        <input type="checkbox"
-          className='switch-ongoing-checkbox'
-          checked={ongoing}
-          onChange={() => switchOngoing(0, 'educationData')}/>
+        <div className="ongoing-switch-container">
+          <p className='ongoing-text'>Ongoing</p>
+          <input type="checkbox"
+            className='switch-ongoing-checkbox'
+            checked={ongoing}
+            onChange={() => switchOngoing(0, 'educationData')}/>
+        </div>
         {appendAdditionalForms()}
         <button onClick={addNewForm} className='new-education-form-button'>Add education</button>
       </div>

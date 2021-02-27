@@ -31,7 +31,7 @@ export const Experience = ({handleExperienceData, experienceData, addNewExperien
     for (let i = 1; i < formCount; i++) {
       const {field, employer, fieldDate, ongoing} = experienceData[i];
       additinalFormsArray.push(
-        <div className="form-fields" key={uniqid()}>
+        <div className="additional-form-fields" key={uniqid()}>
           <input type="text" 
               id={`field${i}`}
               className='work-field'
@@ -44,6 +44,7 @@ export const Experience = ({handleExperienceData, experienceData, addNewExperien
               placeholder='employer'
               defaultValue={employer}
               onBlur={handleChange}/>
+            <h3 className='time-of-concurrence'>Time of concurrence:</h3>
             <input type="date" 
               id={`fieldDate${i}0`}
               className='start-date'
@@ -54,10 +55,13 @@ export const Experience = ({handleExperienceData, experienceData, addNewExperien
               className='end-date'
               defaultValue={fieldDate[1]}
               onBlur={handleDate}/>
-            <input type="checkbox"
-              className='switch-ongoing-checkbox'
-              checked={ongoing}
-              onChange={() => switchOngoing(i, 'experienceData')}/>
+            <div className="ongoing-switch-container">
+              <p className='ongoing-text'>Ongoing</p>
+              <input type="checkbox"
+                className='switch-ongoing-checkbox'
+                checked={ongoing}
+                onChange={() => switchOngoing(i, 'experienceData')}/>
+            </div>
         </div>
       )
     }
@@ -66,7 +70,6 @@ export const Experience = ({handleExperienceData, experienceData, addNewExperien
 
   const {field, employer, fieldDate, ongoing} = experienceData[0];
   return(
-    <div>
       <div className="form-fields" key={uniqid()}>
         <input type="text" 
           id='field0'
@@ -80,6 +83,7 @@ export const Experience = ({handleExperienceData, experienceData, addNewExperien
           placeholder='Employer'
           defaultValue={employer}
           onBlur={handleChange}/>
+        <h3 className='time-of-concurrence'>Time of concurrence:</h3>
         <input type="date" 
           id='fieldDate00'
           className='start-date'
@@ -90,13 +94,15 @@ export const Experience = ({handleExperienceData, experienceData, addNewExperien
           className='end-date'
           defaultValue={fieldDate[1]}
           onBlur={handleDate}/>
-        <input type="checkbox"
-          className='switch-ongoing-checkbox'
-          checked={ongoing}
-          onChange={() => switchOngoing(0, 'experienceData')}/>
+        <div className="ongoing-switch-container">
+          <p className='ongoing-text'>Ongoing</p>
+          <input type="checkbox"
+            className='switch-ongoing-checkbox'
+            checked={ongoing}
+            onChange={() => switchOngoing(0, 'experienceData')}/>
+        </div>
         {appendAdditionalForms()}
         <button onClick={addNewForm} className='new-education-form-button'>Add experiece</button>
       </div>
-    </div>
     )
 }
