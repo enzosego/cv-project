@@ -177,6 +177,7 @@ class App extends Component {
         <div className="main-container">
           <div className="top-bar">
             <h1>CV Maker</h1>
+            <h2 className='switch-preview-title'>Preview</h2>
             <div className="switch-container">
               <input type="checkbox" className='switch-preview' onChange={this.switchPreview}/>
             </div>

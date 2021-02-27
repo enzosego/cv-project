@@ -42,18 +42,20 @@ export const PersonalInfo = ({handlePersonalData, personalData}) => {
           defaultValue={number}
           placeholder='Enter your phone number'
           onBlur={handleChange}/>
+        <h3 className="textarea-title">Tell us about yourself</h3>
         <textarea cols="62"
           id='about'
           defaultValue={about}
           rows="5" 
-          placeholder='Tell us about yourself.'
+          placeholder='I am a simple person with simple needs.'
           onBlur={handleChange}>
         </textarea>
+        <h3 className="textarea-title">Tell us why you are a good fit for the company</h3>
         <textarea cols="62" 
           id='whyFit'
           defaultValue={whyFit}
           rows="5" 
-          placeholder='Tell us why are you a good fit for our company.'
+          placeholder='I am very good at this (i think).'
           onBlur={handleChange}>
         </textarea>
       </div>

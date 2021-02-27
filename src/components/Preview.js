@@ -17,11 +17,11 @@ const appendingAdditionalEducation = (educationData) => {
     const {title, institution, educationDate, ongoing} = educationData[i];
     additionalEducationArray.push(
       <div className="additional-education" key={uniqid()}>
-        <h2 className='title'>Education Title:</h2>
+        <h3>Education Title:</h3>
         <p className="subText">{title}</p>
-        <h2 className='title'>Name of Institution:</h2>
+        <h3>Name of Institution:</h3>
         <p className="subText">{institution}</p>
-        <h2 className='title'>Time of concurrence:</h2>
+        <h3>Time of concurrence:</h3>
         {appendingDates(educationDate[0], educationDate[1], ongoing)}
       </div>
     )
@@ -37,11 +37,11 @@ const appendAdditionalExperince = (experienceData) => {
     const {field, employer, fieldDate, ongoing} = experienceData[i];
     additionalExperienceArray.push(
       <div className="additional-experience" key={uniqid()}>
-        <h2 className="title">Work experience:</h2>
+        <h3>Work experience:</h3>
         <p className="subText">{field}</p>
-        <h2 className="title">Employer:</h2>
+        <h3>Employer:</h3>
         <p className="subText">{employer}</p>
-        <h2 className='title'>Time of concurrence:</h2>
+        <h3>Time of concurrence:</h3>
         {appendingDates(fieldDate[0], fieldDate[1], ongoing)}
       </div>
     )
@@ -83,20 +83,22 @@ const previewContainer = (showPreview, personalData, educationData, experienceDa
           </div>
           <div className="education-experience-container">
             <div className="education">
-              <h2 className='title'>Education Title:</h2>
+              <h2 className='title'>Education</h2>
+              <h3>Title:</h3>
               <p className="subText">{title}</p>
-              <h2 className='title'>Name of Institution:</h2>
+              <h3>Name of Institution:</h3>
               <p className="subText">{institution}</p>
-              <h2 className='title'>Time of concurrence:</h2>
+              <h3>Time of concurrence:</h3>
               {appendingDates(educationDate[0], educationDate[1], educationData[0].ongoing)}
               {appendingAdditionalEducation(educationData)}
             </div>
             <div className="experience">
               <h2 className="title">Work experience:</h2>
+              <h3>Field:</h3>
               <p className="subText">{field}</p>
-              <h2 className="title">Employer:</h2>
+              <h3>Employer:</h3>
               <p className="subText">{employer}</p>
-              <h2 className='title'>Time of concurrence:</h2>
+              <h3>Time of concurrence:</h3>
               {appendingDates(fieldDate[0], fieldDate[1], experienceData[0].ongoing)}
               {appendAdditionalExperince(experienceData)}
             </div>

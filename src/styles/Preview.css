@@ -79,7 +79,7 @@
 }
 
 .why-fit {
-  margin: 6vh 7% auto 7%;
+  margin: 6vh 7% 1vh 7%;
 }
 
 .why-fit h2 {
@@ -92,19 +92,28 @@
 }
 
 .education {
-  height: 60vh;
-  width: 45%;
   margin: 5vh 7% auto 7%;
+}
+
+.additional-education {
+  border-top: .5vh solid #456b9d;
+  margin-top: 3vh;
+  padding-top: 3vh;
 }
 
 .experience {
-  height: 60vh;
-  width: 45%;
   margin: 5vh 7% auto 7%;
 }
 
+.additional-experience {
+  border-top: .5vh solid #456b9d;
+  margin-top: 3vh;
+  padding-top: 3vh;
+}
+
 .title {
-  font-size: 3.2vh;
+  font-size: 4vh;
+  margin-bottom: 3vh;
 }
 
 .subText {
