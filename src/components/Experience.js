@@ -68,6 +68,7 @@ export const Experience = ({handleExperienceData, experienceData, addNewExperien
     return additinalFormsArray;
   }
 
+  console.log(experienceData[0]);
   const {field, employer, fieldDate, ongoing} = experienceData[0];
   return(
       <div className="form-fields" key={uniqid()}>
